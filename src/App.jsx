@@ -222,6 +222,97 @@ function DecorativeInteriorCard({ label, className = "" }) {
   );
 }
 
+function DynamicInteriorHeroBackground() {
+  const slides = [
+    {
+      title: "Warm Luxury Living",
+      subtitle: "Layered lighting · Marble textures · Premium comfort",
+      bg: "from-[#2a211c] via-[#7a6041] to-[#f0dfc4]",
+      accent: "bg-[#d9b56d]",
+    },
+    {
+      title: "Modern Calm Residence",
+      subtitle: "Natural tones · Soft curves · Buildable details",
+      bg: "from-[#191715] via-[#6e675f] to-[#efe7dc]",
+      accent: "bg-[#c9a36a]",
+    },
+    {
+      title: "Signature Design & Build",
+      subtitle: "Space planning · Material control · Quality execution",
+      bg: "from-[#15110d] via-[#5c4631] to-[#d8c4a2]",
+      accent: "bg-[#b68b3c]",
+    },
+  ];
+
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      {slides.map((slide, index) => (
+        <motion.div
+          key={slide.title}
+          className={`absolute inset-0 bg-gradient-to-br ${slide.bg}`}
+          initial={{ opacity: index === 0 ? 1 : 0, scale: 1.05 }}
+          animate={{
+            opacity: [0, 1, 1, 0],
+            scale: [1.08, 1.03, 1, 1.06],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            delay: index * 5,
+            ease: "easeInOut",
+          }}
+        >
+          <motion.div
+            className="absolute inset-0 opacity-40"
+            animate={{ x: [0, -25, 0], y: [0, 16, 0] }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <div className="absolute left-[7%] top-[13%] h-[48%] w-[22%] rounded-t-full border border-white/25 bg-white/10 backdrop-blur-sm" />
+            <div className="absolute left-[34%] top-[10%] h-[62%] w-[36%] rounded-[3rem] border border-white/15 bg-black/10 shadow-2xl backdrop-blur-[2px]" />
+            <div className="absolute right-[8%] top-[18%] h-[38%] w-[20%] rounded-[2rem] border border-white/20 bg-white/10 backdrop-blur-sm" />
+          </motion.div>
+
+          <motion.div
+            className="absolute bottom-[14%] left-[8%] right-[8%] h-[26%] rounded-[3rem] bg-black/30 shadow-2xl backdrop-blur-sm"
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute bottom-[20%] left-[14%] h-[12%] w-[30%] rounded-[2rem] bg-white/20 shadow-2xl backdrop-blur"
+            animate={{ x: [0, 15, 0] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute bottom-[22%] right-[18%] h-[18%] w-[18%] rounded-t-full border border-white/25 bg-white/15 backdrop-blur"
+            animate={{ y: [0, 12, 0] }}
+            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute right-[12%] top-[14%] h-32 w-32 rounded-full bg-white/25 blur-2xl"
+            animate={{ scale: [1, 1.35, 1], opacity: [0.35, 0.7, 0.35] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className={`absolute left-[48%] top-[20%] h-24 w-24 rounded-full ${slide.accent} blur-3xl`}
+            animate={{ scale: [1, 1.5, 1], opacity: [0.3, 0.75, 0.3] }}
+            transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
+          />
+
+          <div className="absolute bottom-10 right-10 hidden max-w-sm rounded-[2rem] border border-white/20 bg-black/25 p-6 text-white shadow-2xl backdrop-blur-xl lg:block">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#f4d38b]">Hero Atmosphere</p>
+            <p className="mt-3 text-2xl font-semibold">{slide.title}</p>
+            <p className="mt-2 text-sm text-white/75">{slide.subtitle}</p>
+          </div>
+        </motion.div>
+      ))}
+
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(20,18,16,0.9)_0%,rgba(20,18,16,0.66)_42%,rgba(20,18,16,0.24)_72%,rgba(20,18,16,0.46)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(217,181,109,0.28),transparent_30%),radial-gradient(circle_at_75%_70%,rgba(255,255,255,0.16),transparent_30%)]" />
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#f8f3eb] to-transparent" />
+    </div>
+  );
+}
+
 export default function GoldenTouchWebsite() {
   const [menuOpen, setMenuOpen] = useState(false);
   const year = useMemo(() => new Date().getFullYear(), []);
@@ -281,26 +372,27 @@ export default function GoldenTouchWebsite() {
       </header>
 
       <main>
-        <section id="home" className="relative overflow-hidden pt-28 lg:pt-32">
-          <div className="absolute left-0 top-0 h-[520px] w-[520px] rounded-full bg-[#dcc394]/30 blur-3xl" />
-          <div className="absolute right-0 top-32 h-[460px] w-[460px] rounded-full bg-[#1d1a17]/10 blur-3xl" />
+        <section id="home" className="relative min-h-screen overflow-hidden bg-[#141210] pt-28 text-white lg:pt-32">
+          <DynamicInteriorHeroBackground />
 
-          <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-24">
+          <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 px-5 py-16 lg:min-h-[calc(100vh-8rem)] lg:grid-cols-[1.02fr_0.98fr] lg:px-8 lg:py-24">
             <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#dcc394] bg-white/60 px-4 py-2 text-sm font-medium text-[#6f675e] backdrop-blur">
-                <Star className="h-4 w-4 fill-[#b68b3c] text-[#b68b3c]" />
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-medium text-white/85 shadow-xl backdrop-blur-xl">
+                <Star className="h-4 w-4 fill-[#d9b56d] text-[#d9b56d]" />
                 Design-Driven Interior Design & Renovation Malaysia
               </div>
-              <h1 className="max-w-4xl text-5xl font-semibold tracking-[-0.06em] text-[#1d1a17] md:text-7xl lg:text-8xl">
+              <h1 className="max-w-4xl text-5xl font-semibold tracking-[-0.06em] text-white drop-shadow-2xl md:text-7xl lg:text-8xl">
                 Design-Driven Interiors. Quality Renovation.
               </h1>
-              <p className="mt-7 max-w-2xl text-lg leading-9 text-[#6f675e] md:text-xl">
+              <p className="mt-7 max-w-2xl text-lg leading-9 text-white/78 md:text-xl">
                 Golden Touch Space Design Sdn. Bhd. creates beautiful, practical, and buildable spaces for homes and commercial projects in Malaysia — from concept to completion.
               </p>
-              <p className="mt-4 text-lg font-medium text-[#1d1a17]">点金空间设计｜匠造空间 · 创造价值</p>
+              <p className="mt-4 text-lg font-medium text-[#f4d38b]">点金空间设计｜匠造空间 · 创造价值</p>
               <div className="mt-9 flex flex-col gap-4 sm:flex-row">
                 <GoldButton href="#contact">Book a Consultation</GoldButton>
-                <GoldButton href="#portfolio" variant="secondary">View Our Projects</GoldButton>
+                <a href="#portfolio" className="inline-flex items-center justify-center rounded-full border border-white/30 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-xl transition duration-300 hover:border-[#d9b56d] hover:bg-white/20">
+                  View Our Projects <ArrowRight className="ml-2 h-4 w-4" />
+                </a>
               </div>
 
               <div className="mt-12 grid max-w-2xl grid-cols-3 gap-3">
@@ -309,25 +401,37 @@ export default function GoldenTouchWebsite() {
                   ["One-Stop", "Design & Build"],
                   ["KL Based", "Malaysia Projects"],
                 ].map(([value, label]) => (
-                  <div key={label} className="rounded-3xl border border-white/70 bg-white/55 p-4 backdrop-blur">
-                    <p className="text-lg font-semibold text-[#1d1a17]">{value}</p>
-                    <p className="mt-1 text-xs uppercase tracking-[0.16em] text-[#8c7b65]">{label}</p>
+                  <div key={label} className="rounded-3xl border border-white/15 bg-white/10 p-4 shadow-xl backdrop-blur-xl">
+                    <p className="text-lg font-semibold text-white">{value}</p>
+                    <p className="mt-1 text-xs uppercase tracking-[0.16em] text-white/58">{label}</p>
                   </div>
                 ))}
               </div>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className="relative min-h-[560px]"
+              initial={{ opacity: 0, x: 32 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.85, delay: 0.15 }}
+              className="relative hidden min-h-[540px] lg:block"
             >
-              <DecorativeInteriorCard label="Premium Living Concept" className="absolute right-0 top-0 h-[420px] w-[78%]" />
-              <DecorativeInteriorCard label="Buildable Design Details" className="absolute bottom-0 left-0 h-[300px] w-[58%]" />
-              <div className="absolute bottom-12 right-6 max-w-xs rounded-[1.7rem] border border-white/60 bg-white/85 p-6 shadow-2xl backdrop-blur">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#b68b3c]">Our Promise</p>
-                <p className="mt-3 text-xl font-semibold leading-7 text-[#1d1a17]">
+              <div className="absolute right-0 top-8 w-[86%] overflow-hidden rounded-[3rem] border border-white/20 bg-white/10 p-6 shadow-2xl backdrop-blur-2xl">
+                <div className="relative h-[430px] overflow-hidden rounded-[2.3rem] bg-gradient-to-br from-[#efe0c7]/70 via-[#8a6b43]/65 to-[#16120f]">
+                  <motion.div
+                    className="absolute inset-0 bg-[radial-gradient(circle_at_30%_18%,rgba(255,255,255,0.82),transparent_20%),radial-gradient(circle_at_72%_36%,rgba(217,181,109,0.55),transparent_18%)]"
+                    animate={{ scale: [1, 1.06, 1], opacity: [0.8, 1, 0.8] }}
+                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                  <div className="absolute left-8 top-8 h-[54%] w-[26%] rounded-t-full border border-white/25 bg-white/20 backdrop-blur" />
+                  <div className="absolute bottom-10 left-10 right-10 h-28 rounded-[2rem] bg-black/35 shadow-2xl backdrop-blur" />
+                  <div className="absolute bottom-16 left-16 h-16 w-44 rounded-[1.4rem] bg-white/20 backdrop-blur" />
+                  <div className="absolute right-10 top-16 h-48 w-32 rounded-[2rem] border border-white/25 bg-white/15 backdrop-blur" />
+                </div>
+              </div>
+
+              <div className="absolute bottom-8 left-0 max-w-xs rounded-[1.7rem] border border-white/20 bg-black/30 p-6 shadow-2xl backdrop-blur-xl">
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#f4d38b]">Our Promise</p>
+                <p className="mt-3 text-xl font-semibold leading-7 text-white">
                   Beauty, function, material control, and quality execution in one complete journey.
                 </p>
               </div>
